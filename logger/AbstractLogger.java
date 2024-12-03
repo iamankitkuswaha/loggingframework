@@ -1,5 +1,7 @@
 package logger;
 
+import destination.LogSubject;
+
 public abstract class AbstractLogger {
     int loggingLevel;
     AbstractLogger nextLoggingLevel;
@@ -7,13 +9,13 @@ public abstract class AbstractLogger {
         this.nextLoggingLevel = nextLoggingLevel;
     }
 
-    void logMessage(int loggingLevel, String message){
+    void logMessage(int loggingLevel, String message, LogSubject logSubject){
         if(this.loggingLevel<=loggingLevel)
-            display(message);
+            display(message, logSubject);
 
         if(this.nextLoggingLevel!=null)
-            this.nextLoggingLevel.logMessage(loggingLevel, message);
+            this.nextLoggingLevel.logMessage(loggingLevel, message, logSubject);
     }
-    protected abstract void display(String message);
+    protected abstract void display(String message, LogSubject logSubject);
 
 }

@@ -1,5 +1,9 @@
 package logger;
 
+import destination.ConsoleLogger;
+import destination.FileLogger;
+import destination.LogSubject;
+
 public class LogManager {
 
     protected static AbstractLogger buildChainOfLogger(){
@@ -10,5 +14,16 @@ public class LogManager {
         infoLogger.setNextLoggingLevel(errorLogger);
         errorLogger.setNextLoggingLevel(debugLogger);
         return infoLogger;
+    }
+
+    protected static LogSubject buildLogSubject(){
+        LogSubject logSubject = new LogSubject();
+        ConsoleLogger consoleLogger = new ConsoleLogger();
+        FileLogger fileLogger = new FileLogger();
+        logSubject.addObserver(1, consoleLogger);
+        logSubject.addObserver(2,consoleLogger);
+        logSubject.addObserver(1,fileLogger);
+
+        return logSubject;
     }
 }

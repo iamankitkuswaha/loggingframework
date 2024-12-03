@@ -1,5 +1,7 @@
 package logger;
 
+import destination.LogSubject;
+
 public class InfoLogger extends AbstractLogger{
 
     public InfoLogger(int logginLevel){
@@ -7,7 +9,8 @@ public class InfoLogger extends AbstractLogger{
     }
 
     @Override
-    protected void display(String message) {
-        System.out.println("INFO: "+ message);
+    protected void display(String message, LogSubject logSubject) {
+        String info = "INFO: "+ message;
+        logSubject.notifyAllObservers(1, info);
     }
 }
